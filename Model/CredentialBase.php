@@ -10,6 +10,7 @@ use LazyRecord\BaseModel;
 class CredentialBase
     extends BaseModel
 {
+    const SCHEMA_CLASS = 'OAuthPlugin\\Model\\CredentialSchema';
     const SCHEMA_PROXY_CLASS = 'OAuthPlugin\\Model\\CredentialSchemaProxy';
     const COLLECTION_CLASS = 'OAuthPlugin\\Model\\CredentialCollection';
     const MODEL_CLASS = 'OAuthPlugin\\Model\\Credential';
