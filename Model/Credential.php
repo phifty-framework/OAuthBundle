@@ -34,6 +34,9 @@ extends \OAuthPlugin\Model\CredentialBase
         if (isset($tokenInfo['refresh_token'])) {
             $args['refresh_token'] = $tokenInfo['refresh_token'];
         }
+        if (isset($tokenInfo['expires_at'])) {
+            $args['expires_at'] = $tokenInfo['expires_at'];
+        }
         $record = new static;
         $record->createOrUpdate($args, ['provider','app_id','identity']);
         return $record;

@@ -44,10 +44,11 @@ class CredentialSchema extends SchemaDeclare
             ->label('Member Id')
             ;  // local user id
 
-        // in seconds
-        $this->column('expires_in')
-            ->integer()
-            ->label('Expires In')
+        $this->column('expires_at')
+            ->timestamp()
+            ->isa('DateTime')
+            ->null()
+            ->label('Expires At')
             ;
 
         $this->column('access_token')

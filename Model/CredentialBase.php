@@ -27,7 +27,7 @@ class CredentialBase
       4 => 'identity',
       5 => 'data',
       6 => 'member_id',
-      7 => 'expires_in',
+      7 => 'expires_at',
       8 => 'access_token',
       9 => 'refresh_token',
     );
@@ -39,7 +39,7 @@ class CredentialBase
       'identity' => 1,
       'data' => 1,
       'member_id' => 1,
-      'expires_in' => 1,
+      'expires_at' => 1,
       'access_token' => 1,
       'refresh_token' => 1,
     );
@@ -83,9 +83,9 @@ class CredentialBase
     {
             return $this->get('member_id');
     }
-    public function getExpiresIn()
+    public function getExpiresAt()
     {
-            return $this->get('expires_in');
+            return $this->get('expires_at');
     }
     public function getAccessToken()
     {
