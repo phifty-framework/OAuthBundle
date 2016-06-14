@@ -28,10 +28,10 @@ extends \OAuthPlugin\Model\CredentialBase
             'data'               => json_encode($tokenInfo),
         );
 
-        if ( isset($tokenInfo['access_token']) ) {
+        if (isset($tokenInfo['access_token'])) {
             $args['access_token'] = $tokenInfo['access_token'];
         }
-        if ( isset($tokenInfo['refresh_token']) ) {
+        if (isset($tokenInfo['refresh_token'])) {
             $args['refresh_token'] = $tokenInfo['refresh_token'];
         }
         $record = new static;

@@ -6,22 +6,21 @@ use Phifty\Controller;
 use OAuth;
 use OAuthPlugin\OAuthPlugin;
 use OAuthPlugin\Controller\OAuth1\AccessTokenController;
+use OAuthPlugin\UserInfoFetcher;
 
-class OAuthPlurkCallback extends AccessTokenController
+class OAuthPlurkCallback extends AccessTokenController implements UserInfoFetcher
 {
-
-    public function getIdentity($userinfo,$tokeninfo)
+    public function getIdentity(array $userinfo, array $tokeninfo)
     {
         return $userinfo->user_info->id;
-
         // ->display_name
         //  ->nick_name
     }
 
-    public function fetchUserInfo($oauth)
+    public function fetchUserInfo($client, array $tokeninfo)
     {
-        $oauth->fetch('http://www.plurk.com/APP/Profile/getOwnProfile');
-        $response = $oauth->getLastResponse();
+        $client->fetch('http://www.plurk.com/APP/Profile/getOwnProfile');
+        $response = $client->getLastResponse();
         return json_decode($response);
     }
 

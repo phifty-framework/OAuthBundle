@@ -55,6 +55,7 @@ class OAuthPlugin extends Bundle
 
     public function init()
     {
+        $this->addRecordAction('Credential');
 
         if ( $this->config('Providers.Twitter') ) {
             $this->route('/oauth/twitter', 'OAuthTwitter');
@@ -98,7 +99,7 @@ class OAuthPlugin extends Bundle
         return [
             "corneltek/oauth-provider" => "~1",
             "corneltek/oauth2"         => "~1",
-            "facebook/php-sdk"          => "@stable"
+            "facebook/php-sdk-v4"          => "~5.0",
         ];
     }
 }

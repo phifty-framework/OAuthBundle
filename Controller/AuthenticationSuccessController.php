@@ -3,6 +3,7 @@ namespace OAuthPlugin\Controller;
 use Phifty\Controller;
 use OAuthProvider\OAuth2\OAuthFacebook as OAuthFacebookProvider;
 use OAuthPlugin\OAuthPlugin;
+use OAuthPlugin\MemberRegisterable;
 use MemberBundle\CurrentMember;
 use MemberBundle\Model\Member;
 use Exception;
@@ -55,7 +56,7 @@ class AuthenticationSuccessController extends Controller
      */
     public $member;
 
-    public function __constructor() 
+    public function __constructor()
     {
         $this->bundle = OAuthPlugin::getInstance();
     }
@@ -68,8 +69,8 @@ class AuthenticationSuccessController extends Controller
             if ( ! $this->credential ) {
                 throw new Exception('Empty credential object.');
             }
-            if ( method_exists($this->parent, 'registerMember') ) {
 
+            if ($this->parent instanceof MemberRegisterable) {
                 if ( $memberId = $this->credential->member_id ) {
                     // set current member login
                     $ret = $member->load( intval($memberId) );
@@ -81,7 +82,7 @@ class AuthenticationSuccessController extends Controller
                 }
 
                 if ( ! $this->member ) {
-                    $this->member = $this->parent->registerMember();
+                    $this->member = $this->parent->registerMember($this->parent->userInfo);
                 }
 
                 // the member record is created, we register the member record to the member's session.

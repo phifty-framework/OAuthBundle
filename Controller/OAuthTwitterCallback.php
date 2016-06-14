@@ -6,10 +6,11 @@ use OAuthException;
 use OAuthProvider\OAuthProvider;
 use OAuthPlugin\OAuthPlugin;
 use OAuthPlugin\Controller\OAuth1\AccessTokenController;
+use OAuthPlugin\UserInfoFetcher;
 
-class OAuthTwitterCallback extends AccessTokenController
+class OAuthTwitterCallback extends AccessTokenController implements UserInfoFetcher
 {
-    public function getIdentity($userinfo,$tokenInfo)
+    public function getIdentity(array $userinfo, array $tokenInfo)
     {
         // if we only use tokenInfo, we don't need to call an extra API.
         // return $tokenInfo['screen_name'] . '-' . $tokenInfo['user_id'];
@@ -20,7 +21,7 @@ class OAuthTwitterCallback extends AccessTokenController
      * User info API
      * https://dev.twitter.com/docs/api/1.1/get/users/show
      */
-    public function fetchUserInfo($client, $accessTokenInfo)
+    public function fetchUserInfo($client, array $accessTokenInfo)
     {
         $url = 'https://api.twitter.com/1.1/users/show.json?' . http_build_query(array(
             // either an user_id or a screen_name is required for this method call.

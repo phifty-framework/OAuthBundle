@@ -42,16 +42,14 @@ class OAuthStravaCallback extends AccessTokenController
      *  }
      *
      */
-    public function getIdentity($userInfo, $tokenInfo)
+    public function getIdentity(array $userInfo, array $tokenInfo)
     {
         return $userInfo['id'];
     }
 
-    public function fetchUserInfo($client, $tokenInfo)
+    public function fetchUserInfo($client, array $tokenInfo)
     {
-        // XXX: implements this
         return $tokenInfo['athlete'];
-        // return $client->fetch('https://graph.facebook.com/me');
     }
 
     public function getConfig()

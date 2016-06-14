@@ -48,14 +48,6 @@ abstract class BaseAccessTokenController extends Controller
      */
     public $bundle;
 
-    /**
-     * This method should return a structure:
-     *
-     * @return array [ access_token => .... ]
-     */
-    abstract public function fetchUserInfo($client,$tokenInfo);
-
-    abstract public function getIdentity($userInfo,$tokenInfo);
 
 
     public function __construct()
@@ -76,12 +68,16 @@ abstract class BaseAccessTokenController extends Controller
 
     public function indexAction()
     {
+        $this->runAccessToken($this->provider, $this->getCallbackUrl());
+        return $this->successAction();
+        // XXX: 
+
+        /* customizable exception handling
         try {
-            $this->runAccessToken( $this->provider, $this->getCallbackUrl() );
-            return $this->successAction();
         } catch( Exception $e ) {
             return $this->exceptionAction($e);
         }
+         */
     }
 
     public function registerSession()
@@ -131,7 +127,7 @@ abstract class BaseAccessTokenController extends Controller
         $controller = new $controllerClass;
         $controller->provider = $this->provider;
         $controller->parent = $this;
-        return $this->forward( $controller ,'index',array(
+        return $this->forward($controller, 'index',array(
             'exception' => $e,
         ));
     }

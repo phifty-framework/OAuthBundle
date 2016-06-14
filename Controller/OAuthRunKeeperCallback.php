@@ -5,10 +5,11 @@ use OAuthPlugin\OAuthPlugin;
 use OAuthProvider\OAuthProvider;
 use OAuthPlugin\Controller\OAuth2\AccessTokenController;
 use OAuth2;
+use OAuthPlugin\UserInfoFetcher;
 
-class OAuthRunKeeperCallback extends AccessTokenController
+class OAuthRunKeeperCallback extends AccessTokenController implements UserInfoFetcher
 {
-    public function getIdentity($userInfo,$tokenInfo)
+    public function getIdentity(array $userInfo, array $tokenInfo)
     {
         preg_match('#runkeeper\.com/user/(\d+)#', $userInfo['profile'], $regs);
         $userId = $regs[1];
@@ -29,10 +30,8 @@ class OAuthRunKeeperCallback extends AccessTokenController
         "name" : "Yo-An Lin"
     }
     */
-    public function fetchUserInfo($client,$tokenInfo) 
+    public function fetchUserInfo($client, array $tokenInfo) 
     {
-        // var_dump( $tokenInfo );
-        // XXX: implements this
         $ret = $client->fetch('https://api.runkeeper.com/profile',array(), \OAuth2\Client::HTTP_METHOD_GET, array(
             "Accept" => "application/vnd.com.runkeeper.Profile+json",
         ));

@@ -11,9 +11,8 @@ use Exception;
 class AuthenticationException extends Exception {
 
     public $response;
-
-    public function __construct(array $response) {
-        parent::__construct($response['result']['message']);
+    public function __construct($msg, array $response) {
+        parent::__construct($msg);
         $this->response = $response;
     }
 
@@ -55,6 +54,8 @@ abstract class AccessTokenController extends BaseAccessTokenController
      */
     public function runAccessToken($provider, $callbackUrl)
     {
+
+
         // save provider
         $this->provider = $provider;
         $this->client = $this->createOAuthClient($provider);
@@ -72,7 +73,9 @@ abstract class AccessTokenController extends BaseAccessTokenController
 
         // parse access token response
         if ( isset($response['result']['errors']) ) {
-            throw new AuthenticationException($response);
+            throw new AuthenticationException($response['message'], $response);
+        } elseif ( isset($response['result']['error']) ) {
+            throw new AuthenticationException($response['result']['error']['message'], $response);
         }
 
         if ( is_array($response['result']) ) {
@@ -83,6 +86,18 @@ abstract class AccessTokenController extends BaseAccessTokenController
             error_log("Unsupported OAuth token result type.");
         }
 
+        /**
+            array (size=3)
+  'result' => 
+    array (size=1)
+      'error' => 
+        array (size=3)
+          'message' => string 'This IP can't make requests for that application.' (length=49)
+          'type' => string 'OAuthException' (length=14)
+          'code' => int 5
+  'code' => int 400
+  'content_type' => string 'application/json; charset=UTF-8' (length=31)
+         */
         if ( isset($this->tokenResult['refresh_token']) ) {
             $this->refreshToken = $this->tokenResult['refresh_token'];
         }
@@ -90,7 +105,7 @@ abstract class AccessTokenController extends BaseAccessTokenController
             $this->accessToken = $this->tokenResult['access_token'];
         }
         if ( ! $this->accessToken ) {
-            throw new Exception("OAuth error, no access token.");
+            throw new Exception("No access token returned.");
         }
 
         // set the access token so we can ask more information through the API.
@@ -100,7 +115,7 @@ abstract class AccessTokenController extends BaseAccessTokenController
         $this->userInfo = $this->fetchUserInfo($this->client,$this->tokenResult);
 
         // get the user identity from API so we can distinguish the credential record.
-        $identity = $this->getIdentity($this->userInfo, $this->tokenResult );
+        $identity = $this->getIdentity($this->userInfo, $this->tokenResult);
         $this->credential = Credential::loadCredential(
             $provider->getName(),
             $provider->getClientId(),

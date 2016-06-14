@@ -4,17 +4,18 @@ use Phifty\Controller;
 use OAuthPlugin\OAuthPlugin;
 use OAuthProvider\OAuthProvider;
 use OAuthPlugin\Controller\OAuth2\AccessTokenController;
+use OAuthPlugin\UserInfoFetcher;
 use OAuth2;
 
 class OAuthGitHubCallback extends AccessTokenController
 {
 
-    public function getIdentity($userInfo,$tokenInfo)
+    public function getIdentity(array $userInfo, array $tokenInfo)
     {
         return $userInfo['login'];
     }
 
-    public function fetchUserInfo($client,$tokenInfo)
+    public function fetchUserInfo($client, array $tokenInfo)
     {
         $ret = $client->fetch('https://api.github.com/user', array() , OAuth2\Client::HTTP_METHOD_GET, array( 'User-Agent' => kernel()->getApplicationName() ) );
         return $ret['result'];

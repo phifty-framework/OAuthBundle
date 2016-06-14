@@ -5,19 +5,21 @@ use OAuthPlugin\OAuthPlugin;
 use OAuthProvider\OAuthProvider;
 use OAuthPlugin\Controller\OAuth2\AccessTokenController;
 use OAuth2;
+use OAuthPlugin\MemberRegisterable;
+use OAuthPlugin\UserInfoFetcher;
 use MemberBundle\Model\Member;
 use Exception;
 
-class OAuthFacebookCallback extends AccessTokenController
+class OAuthFacebookCallback extends AccessTokenController implements MemberRegisterable, UserInfoFetcher
 {
 
-    public function getIdentity($userInfo,$tokenInfo)
+    public function getIdentity(array $userInfo, array $tokenInfo)
     {
         // return $userInfo['username'] . '-' . $userInfo['id'];
         return $userInfo['id'];
     }
 
-    public function fetchUserInfo($client, $tokenInfo)
+    public function fetchUserInfo($client, array $tokenInfo)
     {
         // Adding fields means if you only needs one or two more fields.
         // $ret = $client->fetch('https://graph.facebook.com/me', array('fields' => 'name,email') );
@@ -47,14 +49,14 @@ class OAuthFacebookCallback extends AccessTokenController
     /**
      * This method returns a Member object, but it does not update CurrentMember's current record.
      */
-    public function registerMember()
+    public function registerMember(array $userInfo)
     {
         $member = new Member;
 
         // if the Credential record is already connected with a member record, 
         // we should simply load the CurrentMember
 
-        if ( $memberId = $this->credential->member_id ) {
+        if ($memberId = $this->credential->member_id) {
             // set current member login
             $ret = $member->load( intval($memberId) );
             if ( $ret->success ) {
@@ -64,10 +66,8 @@ class OAuthFacebookCallback extends AccessTokenController
             }
         }
 
-        
         /**
          * The registration process:
-         *
          *
          * @var array $this->userInfo
             array(
@@ -92,16 +92,21 @@ class OAuthFacebookCallback extends AccessTokenController
         // Merge the registered member by e-mail
         //
         // 當會員已經手動註冊過，卻又點擊 FB OAuth 時，
-        // 就會發生沒有credential卻已經有member的情況
+        // 就會發生沒有 credential 卻已經有member的情況
         // 這時候不需要重新建立會員資料
-        $member->load(array('email'=>$this->userInfo['email']));
+        $member->load(array('email' => $this->userInfo['email']));
         if (!$member->id) {
-            $member->rawCreate(array(
+            $ret = $member->create(array(
                 'name'      => $this->userInfo['name'],
                 'nickname'  => $this->userInfo['name'],
                 'email'     => $this->userInfo['email'],
                 'confirmed' => true,
+                'password'  => sha1(microtime()), // generate a random password
+                'auth_token' => sha1(microtime()),
             ));
+            if ($ret->error) {
+                throw new Exception($ret->message);
+            }
         }
         if (!$member->id) {
             throw new Exception("Can not create member.");
@@ -121,7 +126,7 @@ class OAuthFacebookCallback extends AccessTokenController
 
 /*
 array
-  'result' => 
+  'result' =>
     array
       'id' => string '614411714' (length=9)
       'name' => string 'Yo-An Lin' (length=9)
