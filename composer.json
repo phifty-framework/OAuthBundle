@@ -7,7 +7,9 @@
     ],
     "require": {
         "phifty/phifty": "^3.1.0",
-        "composer/installers": "dev-master"
+        "composer/installers": "dev-master",
+        "corneltek/oauth-provider": "~1",
+        "corneltek/oauth2": "~1"
     },
     "extra": { "branch-alias": { "dev-master": "3.1.x-dev" } },
     "autoload": { "psr-4":  { "OAuthBundle\\": "" } }
