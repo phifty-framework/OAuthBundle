@@ -1,10 +1,10 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
-use OAuthPlugin\OAuthPlugin;
+use OAuthBundle\OAuthBundle;
 use OAuthProvider\OAuthProvider;
-use OAuthPlugin\Controller\OAuth2\AccessTokenController;
-use OAuthPlugin\UserInfoFetcher;
+use OAuthBundle\Controller\OAuth2\AccessTokenController;
+use OAuthBundle\UserInfoFetcher;
 use OAuth2;
 
 class OAuthGitHubCallback extends AccessTokenController

@@ -1,10 +1,10 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
-use OAuthPlugin\OAuthPlugin;
+use OAuthBundle\OAuthBundle;
 use OAuthProvider\OAuthProvider;
 use OAuth2;
-use OAuthPlugin\Model\Credential;
+use OAuthBundle\Model\Credential;
 use Exception;
 
 abstract class BaseAccessTokenController extends Controller
@@ -32,7 +32,7 @@ abstract class BaseAccessTokenController extends Controller
     public $accessToken;
 
     /**
-     * @var OAuthPlugin\Model\Credential record object.
+     * @var OAuthBundle\Model\Credential record object.
      */
     public $credential;
 
@@ -44,7 +44,7 @@ abstract class BaseAccessTokenController extends Controller
 
 
     /**
-     * @var OAuthPlugin\OAuthPlugin object instance
+     * @var OAuthBundle\OAuthBundle object instance
      */
     public $bundle;
 
@@ -52,7 +52,7 @@ abstract class BaseAccessTokenController extends Controller
 
     public function __construct()
     {
-        $this->bundle = OAuthPlugin::getInstance();
+        $this->bundle = OAuthBundle::getInstance();
         $this->provider = $this->createProvider();
     }
 

@@ -1,10 +1,10 @@
 <?php
-namespace OAuthPlugin\Model;
+namespace OAuthBundle\Model;
 
 
 
 class CredentialCollection 
-extends \OAuthPlugin\Model\CredentialCollectionBase
+extends \OAuthBundle\Model\CredentialCollectionBase
 {
 
     

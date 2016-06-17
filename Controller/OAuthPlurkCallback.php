@@ -1,12 +1,12 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use OAuthProvider\OAuthProvider;
 use OAuthException;
 use Phifty\Controller;
 use OAuth;
-use OAuthPlugin\OAuthPlugin;
-use OAuthPlugin\Controller\OAuth1\AccessTokenController;
-use OAuthPlugin\UserInfoFetcher;
+use OAuthBundle\OAuthBundle;
+use OAuthBundle\Controller\OAuth1\AccessTokenController;
+use OAuthBundle\UserInfoFetcher;
 
 class OAuthPlurkCallback extends AccessTokenController implements UserInfoFetcher
 {

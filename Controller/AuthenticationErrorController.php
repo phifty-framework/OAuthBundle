@@ -1,7 +1,7 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
-use OAuthPlugin\OAuthPlugin;
+use OAuthBundle\OAuthBundle;
 
 
 class AuthenticationErrorController extends Controller
@@ -13,7 +13,7 @@ class AuthenticationErrorController extends Controller
 
     public function indexAction($exception = null)
     {
-        $plugin = OAuthPlugin::getInstance();
+        $plugin = OAuthBundle::getInstance();
         $templateFile = $plugin->config('Templates.Error') ?: 'message.html';
 
         // use error_log();

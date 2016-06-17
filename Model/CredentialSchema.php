@@ -1,5 +1,5 @@
 <?php
-namespace OAuthPlugin\Model;
+namespace OAuthBundle\Model;
 use LazyRecord\Schema\SchemaDeclare;
 
 class CredentialSchema extends SchemaDeclare

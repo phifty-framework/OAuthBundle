@@ -1,8 +1,8 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
-use OAuthPlugin\OAuthPlugin;
-use OAuthPlugin\Controller\OAuth2\RequestTokenController;
+use OAuthBundle\OAuthBundle;
+use OAuthBundle\Controller\OAuth2\RequestTokenController;
 use OAuthProvider\OAuthProvider;
 use OAuth2;
 
@@ -10,7 +10,7 @@ class OAuthGitHub extends RequestTokenController
 {
     function indexAction() 
     {
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $config = $bundle->config('Providers.GitHub');
         $provider = OAuthProvider::create('github',array(
             'client_id' => $config->ClientId,

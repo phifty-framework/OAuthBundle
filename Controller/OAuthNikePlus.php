@@ -1,9 +1,9 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
 use OAuthProvider\OAuthProvider;
-use OAuthPlugin\OAuthPlugin;
-use OAuthPlugin\Controller\OAuth2\RequestTokenController;
+use OAuthBundle\OAuthBundle;
+use OAuthBundle\Controller\OAuth2\RequestTokenController;
 use OAuth2;
 
 function base64_url_decode($input) {
@@ -36,7 +36,7 @@ class OAuthNikePlus extends RequestTokenController
 
     public function indexAction()
     {
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $config = $bundle->config('Providers.NikePlus');
         $provider = OAuthProvider::create('nikeplus',array(
             'client_id'     => $config->ClientId,
@@ -53,7 +53,7 @@ class OAuthNikePlus extends RequestTokenController
      * https://developers.facebook.com/docs/facebook-login/using-login-with-games
      */
     public function deauthorizeCallbackAction() {
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $config = $bundle->config('Providers.NikePlus');
 
         $data       =   parse_signed_request($_REQUEST['signed_request'], $config->ClientSecret);

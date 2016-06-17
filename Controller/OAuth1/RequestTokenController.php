@@ -1,8 +1,8 @@
 <?php
-namespace OAuthPlugin\Controller\OAuth1;
+namespace OAuthBundle\Controller\OAuth1;
 use Phifty\Controller;
 use OAuthProvider\OAuthProvider;
-use OAuthPlugin\OAuthPlugin;
+use OAuthBundle\OAuthBundle;
 use OAuth;
 use OAuthException;
 
@@ -11,7 +11,7 @@ class RequestTokenController extends Controller
 
     public function runRequestToken($provider,$callbackUrl)
     {
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $session = kernel()->session;
 
         try {
@@ -35,7 +35,7 @@ class RequestTokenController extends Controller
                 print "Failed fetching request token, response was: " . $oauth->getLastResponse();
             }
         } catch(OAuthException $e) {
-            return $this->forward( 'OAuthPlugin\Controller\AuthenticationError','index',array(
+            return $this->forward( 'OAuthBundle\Controller\AuthenticationError','index',array(
                 'message' => $e->lastResponse,
                 'e' => $e,
             ));

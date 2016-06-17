@@ -1,5 +1,5 @@
 <?php
-namespace OAuthPlugin;
+namespace OAuthBundle;
 
 interface UserInfoFetcher {
     /**

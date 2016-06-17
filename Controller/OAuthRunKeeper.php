@@ -1,18 +1,18 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
 use OAuthProvider\OAuthProvider;
-use OAuthPlugin\OAuthPlugin;
-use OAuthPlugin\Controller\OAuth2\RequestTokenController;
+use OAuthBundle\OAuthBundle;
+use OAuthBundle\Controller\OAuth2\RequestTokenController;
 use OAuth2;
-use OAuthPlugin\Model\Credential;
+use OAuthBundle\Model\Credential;
 
 class OAuthRunKeeper extends RequestTokenController
 {
 
     public function createProvider()
     {
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $config = $bundle->config('Providers.RunKeeper');
         $provider = OAuthProvider::create('runkeeper',array(
             'client_id'     => $config->ClientId,
@@ -23,7 +23,7 @@ class OAuthRunKeeper extends RequestTokenController
 
     public function indexAction()
     {
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $config = $bundle->config('Providers.RunKeeper');
         $provider = OAuthProvider::create('runkeeper',array(
             'client_id'     => $config->ClientId,
@@ -36,7 +36,7 @@ class OAuthRunKeeper extends RequestTokenController
 
     public function deauthorizeAction() {
         $provider = $this->createProvider();
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $config = $bundle->config('Providers.RunKeeper');
         if ( isset(kernel()->session[ $provider->getName() ]) ) {
             $info = kernel()->session[ $provider->getName() ];

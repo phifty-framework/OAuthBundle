@@ -1,5 +1,5 @@
 <?php
-namespace OAuthPlugin\Model;
+namespace OAuthBundle\Model;
 use LazyRecord\Schema\SchemaLoader;
 use LazyRecord\Result;
 use SQLBuilder\Bind;
@@ -10,10 +10,10 @@ use LazyRecord\BaseModel;
 class CredentialBase
     extends BaseModel
 {
-    const SCHEMA_CLASS = 'OAuthPlugin\\Model\\CredentialSchema';
-    const SCHEMA_PROXY_CLASS = 'OAuthPlugin\\Model\\CredentialSchemaProxy';
-    const COLLECTION_CLASS = 'OAuthPlugin\\Model\\CredentialCollection';
-    const MODEL_CLASS = 'OAuthPlugin\\Model\\Credential';
+    const SCHEMA_CLASS = 'OAuthBundle\\Model\\CredentialSchema';
+    const SCHEMA_PROXY_CLASS = 'OAuthBundle\\Model\\CredentialSchemaProxy';
+    const COLLECTION_CLASS = 'OAuthBundle\\Model\\CredentialCollection';
+    const MODEL_CLASS = 'OAuthBundle\\Model\\Credential';
     const TABLE = 'credentials';
     const READ_SOURCE_ID = 'default';
     const WRITE_SOURCE_ID = 'default';
@@ -53,7 +53,7 @@ class CredentialBase
         if ($this->_schema) {
            return $this->_schema;
         }
-        return $this->_schema = SchemaLoader::load('OAuthPlugin\\Model\\CredentialSchemaProxy');
+        return $this->_schema = SchemaLoader::load('OAuthBundle\\Model\\CredentialSchemaProxy');
     }
     public function getId()
     {

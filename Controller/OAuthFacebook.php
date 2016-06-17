@@ -1,9 +1,9 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
 use OAuthProvider\OAuthProvider;
-use OAuthPlugin\OAuthPlugin;
-use OAuthPlugin\Controller\OAuth2\RequestTokenController;
+use OAuthBundle\OAuthBundle;
+use OAuthBundle\Controller\OAuth2\RequestTokenController;
 use OAuth2;
 use Facebook\FacebookRequest;
 use Facebook\GraphObject;
@@ -39,7 +39,7 @@ class OAuthFacebook extends RequestTokenController
 
     public function indexAction()
     {
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $config = $bundle->config('Providers.Facebook');
 
         // TODO: use facebook SDK class
@@ -62,7 +62,7 @@ class OAuthFacebook extends RequestTokenController
      * https://developers.facebook.com/docs/facebook-login/using-login-with-games
      */
     public function deauthorizeCallbackAction() {
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $config = $bundle->config('Providers.Facebook');
 
         $data       =   parse_signed_request($_REQUEST['signed_request'], $config->ClientSecret);

@@ -1,17 +1,17 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
 use OAuthProvider\OAuthProvider;
-use OAuthPlugin\OAuthPlugin;
-use OAuthPlugin\Controller\OAuth2\RequestTokenController;
+use OAuthBundle\OAuthBundle;
+use OAuthBundle\Controller\OAuth2\RequestTokenController;
 use OAuth2;
-use OAuthPlugin\Model\Credential;
+use OAuthBundle\Model\Credential;
 
 class OAuthStrava extends RequestTokenController
 {
 
     public function createProvider() {
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $config = $bundle->config('Providers.Strava');
         $provider = OAuthProvider::create('strava',array(
             'client_id' => $config->ClientId,
@@ -22,7 +22,7 @@ class OAuthStrava extends RequestTokenController
 
     public function indexAction()
     {
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $config = $bundle->config('Providers.Strava');
         $provider = $this->createProvider();
         $callbackUrl = kernel()->getBaseUrl() . ($config->CallbackUrl ?: '/oauth/strava/callback');
@@ -32,7 +32,7 @@ class OAuthStrava extends RequestTokenController
     }
 
     public function deauthorizeAction() {
-        $bundle = OAuthPlugin::getInstance();
+        $bundle = OAuthBundle::getInstance();
         $config = $bundle->config('Providers.Strava');
         $provider = $this->createProvider();
         if ( isset(kernel()->session[ $provider->getName() ]) ) {

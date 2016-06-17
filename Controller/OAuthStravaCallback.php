@@ -1,9 +1,9 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
-use OAuthPlugin\OAuthPlugin;
+use OAuthBundle\OAuthBundle;
 use OAuthProvider\OAuthProvider;
-use OAuthPlugin\Controller\OAuth2\AccessTokenController;
+use OAuthBundle\Controller\OAuth2\AccessTokenController;
 use OAuth2;
 
 class OAuthStravaCallback extends AccessTokenController

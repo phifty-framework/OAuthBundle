@@ -1,11 +1,11 @@
 <?php
-namespace OAuthPlugin\Controller\OAuth1;
+namespace OAuthBundle\Controller\OAuth1;
 use OAuthProvider\OAuthProvider;
 use OAuthException;
 use Phifty\Controller;
-use OAuthPlugin\Model\Credential;
+use OAuthBundle\Model\Credential;
 use OAuth;
-use OAuthPlugin\Controller\BaseAccessTokenController;
+use OAuthBundle\Controller\BaseAccessTokenController;
 
 abstract class AccessTokenController extends BaseAccessTokenController
 {

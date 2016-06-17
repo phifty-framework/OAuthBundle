@@ -1,12 +1,12 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
 use OAuth;
 use OAuthException;
 use OAuthProvider\OAuthProvider;
-use OAuthPlugin\OAuthPlugin;
-use OAuthPlugin\Controller\OAuth1\AccessTokenController;
-use OAuthPlugin\UserInfoFetcher;
+use OAuthBundle\OAuthBundle;
+use OAuthBundle\Controller\OAuth1\AccessTokenController;
+use OAuthBundle\UserInfoFetcher;
 
 class OAuthTwitterCallback extends AccessTokenController implements UserInfoFetcher
 {

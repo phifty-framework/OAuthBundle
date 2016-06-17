@@ -1,11 +1,11 @@
 <?php
-namespace OAuthPlugin\Controller\OAuth2;
+namespace OAuthBundle\Controller\OAuth2;
 use Phifty\Controller;
-use OAuthPlugin\OAuthPlugin;
+use OAuthBundle\OAuthBundle;
 use OAuthProvider\OAuthProvider;
 use OAuth2;
-use OAuthPlugin\Model\Credential;
-use OAuthPlugin\Controller\BaseAccessTokenController;
+use OAuthBundle\Model\Credential;
+use OAuthBundle\Controller\BaseAccessTokenController;
 use Exception;
 
 class AuthenticationException extends Exception {

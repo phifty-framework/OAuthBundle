@@ -1,10 +1,10 @@
 <?php
-namespace OAuthPlugin\Model;
+namespace OAuthBundle\Model;
 
 
 
 class Credential 
-extends \OAuthPlugin\Model\CredentialBase
+extends \OAuthBundle\Model\CredentialBase
 {
 
     /**

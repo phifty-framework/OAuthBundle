@@ -3,14 +3,14 @@
 /**
  * OAuth Plugin
  **/
-namespace OAuthPlugin;
+namespace OAuthBundle;
 use Phifty\Bundle;
 use Phifty\ComposerConfigBridge;
 use Facebook;
 
 
 /*
-  OAuthPlugin:
+  OAuthBundle:
     Redirect: VStock\Controller\OAuthRedirectController
     Success: VStock\Controller\OAuthSuccessController
     Error: VStock\Controller\OAuthErrorController
@@ -30,7 +30,7 @@ use Facebook;
         ClientSecret:
         CallbackUrl: '/oauth/github/callback'
  */
-class OAuthPlugin extends Bundle
+class OAuthBundle extends Bundle
     implements ComposerConfigBridge
 {
 
@@ -46,9 +46,9 @@ class OAuthPlugin extends Bundle
     public function defaultConfig()
     {
         return array(
-            'Redirect' => '\OAuthPlugin\Controller\RedirectController',
-            'Success'  => '\OAuthPlugin\Controller\AuthenticationSuccessController',
-            'Error'    => '\OAuthPlugin\Controller\AuthenticationErrorController',
+            'Redirect' => '\OAuthBundle\Controller\RedirectController',
+            'Success'  => '\OAuthBundle\Controller\AuthenticationSuccessController',
+            'Error'    => '\OAuthBundle\Controller\AuthenticationErrorController',
             'RequestRedirectDelay' => 0,
         );
     }
@@ -95,11 +95,12 @@ class OAuthPlugin extends Bundle
         }
     }
 
-    public function getComposerDependency() {
+    public function getComposerDependency()
+    {
         return [
             "corneltek/oauth-provider" => "~1",
             "corneltek/oauth2"         => "~1",
-            "facebook/php-sdk-v4"          => "~5.0",
+            "facebook/php-sdk-v4"      => "~5.0",
         ];
     }
 }

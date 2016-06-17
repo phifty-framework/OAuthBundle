@@ -1,9 +1,9 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
 use OAuthProvider\OAuth2\OAuthFacebook as OAuthFacebookProvider;
-use OAuthPlugin\OAuthPlugin;
-use OAuthPlugin\MemberRegisterable;
+use OAuthBundle\OAuthBundle;
+use OAuthBundle\MemberRegisterable;
 use MemberBundle\CurrentMember;
 use MemberBundle\Model\Member;
 use Exception;
@@ -40,13 +40,13 @@ class AuthenticationSuccessController extends Controller
 
 
     /**
-     * @var OAuthPlugin\Model\Credential record object.
+     * @var OAuthBundle\Model\Credential record object.
      */
     public $credential;
 
 
     /**
-     * @var OAuthPluin\OAuthPlugin object instance.
+     * @var OAuthPluin\OAuthBundle object instance.
      */
     public $bundle;
 
@@ -58,7 +58,7 @@ class AuthenticationSuccessController extends Controller
 
     public function __constructor()
     {
-        $this->bundle = OAuthPlugin::getInstance();
+        $this->bundle = OAuthBundle::getInstance();
     }
 
     public function defaultHandler() {
@@ -102,7 +102,7 @@ class AuthenticationSuccessController extends Controller
     public function indexAction()
     {
         $this->defaultHandler();
-        return $this->render('@OAuthPlugin/success.html', [ '_controller' => $this ]);
+        return $this->render('@OAuthBundle/success.html', [ '_controller' => $this ]);
     }
 
 

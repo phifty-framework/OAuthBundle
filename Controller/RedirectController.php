@@ -1,5 +1,5 @@
 <?php
-namespace OAuthPlugin\Controller;
+namespace OAuthBundle\Controller;
 use Phifty\Controller;
 
 class RedirectController extends Controller
@@ -10,7 +10,7 @@ class RedirectController extends Controller
         if ( $seconds ) {
             /* send delayed redirect header */
             header("refresh:  $seconds; url=" . $url );
-            return $this->render('@OAuthPlugin/redirect.html',array(
+            return $this->render('@OAuthBundle/redirect.html',array(
                 'provider' => $provider ,
                 'url' => $url,
             ));
